@@ -1,5 +1,0 @@
-__kernel
-void calcHeatConduction(__global int* heatPrevious, __global int* heatValues, __global int* finalResult)
-{
-int idx = get_global_id(0);
-}

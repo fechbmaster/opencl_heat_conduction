@@ -23,8 +23,5 @@
     <Text Include="HeatConductionKernel2.txt">
       <Filter>Quelldateien</Filter>
     </Text>
-    <Text Include="JacobiHeatConduction.txt">
-      <Filter>Quelldateien</Filter>
-    </Text>
   </ItemGroup>
 </Project>

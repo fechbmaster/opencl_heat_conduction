@@ -173,8 +173,9 @@ void printOpenCLInfos2() {
 
 int main() {
 	const bool debug = false;
-	const int width = 4098;
-	const int height = 2050;
+	const bool output = false;
+	const int width = 642;
+	const int height = 322;
 	const float deltaX = 0.5;
 	const float deltaT = 0.01f;
 	const float alpha = 1.0f;
@@ -186,6 +187,7 @@ int main() {
 	float* heatPrevious = (float*)malloc(datasize);
 	float* heatValues = (float*)malloc(datasize);
 	float* finalResult = (float*)malloc(datasize);
+
 	if (debug) {
 		printOpenCLInfos();
 		printOpenCLInfos2();
@@ -274,15 +276,6 @@ int main() {
 
 	char* programSource = readFile("HeatConductionKernel2.txt");
 
-	/*const char* programSource =
-	"__kernel \n"
-	"void calcHeatConduction(__global float* A, __global float* B, __global float* C) \n"
-	"{ \n"
-	"\n"
-	"int idx = get_global_id(0); \n"
-	"C[idx] = A[idx] + B[idx]; \n"
-	"} \n";*/
-
 	cl_program program = clCreateProgramWithSource(context, 1, (const char**)&programSource, NULL, &status);
 	if (debug)
 		printf("%zd: ", status);
@@ -297,22 +290,6 @@ int main() {
 		printf("%zd: ", status);
 
 	// 8. Executing the kernel
-
-	//status = clSetKernelArg(kernel, 0, sizeof(cl_mem), &bufPrevious);
-	//printf("%zd: ", status);
-	//status = clSetKernelArg(kernel, 1, sizeof(cl_mem), &bufValues);
-	//printf("%zd: ", status);
-	//status = clSetKernelArg(kernel, 2, sizeof(cl_mem), &bufResult);
-	//printf("%zd: ", status);
-
-	//size_t indexSpaceSize[2], workGroupSize[2];
-	//indexSpaceSize[0] = width - 2;
-	//indexSpaceSize[1] = height - 2;
-	//workGroupSize[0] = width - 2;
-	//workGroupSize[1] = height - 2;
-
-	//status = clEnqueueNDRangeKernel(cmdQueue, kernel, 2, NULL, indexSpaceSize, workGroupSize, 0, NULL, NULL);
-	//printf("%zd: ", status);
 
 	size_t indexSpaceSize[2], workGroupSize[2];
 	indexSpaceSize[0] = width - 2;
@@ -383,13 +360,14 @@ int main() {
 	clReleaseMemObject(bufValues);
 	clReleaseMemObject(bufResult);
 	clReleaseContext(context);
-/*
-	for (int i = 0; i < width * height; i++) {
-		if (i % width == 0)
-			printf("\n");
-		printf("%f ", finalResult[i]);
+
+	if (output) {
+		for (int i = 0; i < width * height; i++) {
+			if (i % width == 0)
+				printf("\n");
+			printf("%f ", finalResult[i]);
+		}
 	}
-*/
 	if (debug)
 		printf("%f", finalResult[width * 150 + 1]);
 
