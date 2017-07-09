@@ -1,19 +1,19 @@
-#opencl_heat_conduction + opencl_vector_addition
+# opencl_heat_conduction + opencl_vector_addition
 
-##Inhalt
+## Inhalt
 ------
 Studienarbeit Teil 1 - Verzeichnis: text/Studienarbeit_Teil1.pdf - Verfasser: Julian Hillesheimer
 Studienarbeit Teil 2 - Verzeichnis: text/Studienarbeit_Teil2.pdf - Verfasser: Bernd Fecht
 Quelltext Vektoraddition - Verzeichnis: source/OpenCL_Test
 Quelltext Wärmeleitung - Verzeichnis: source/HeatConduction
 
-##Systemvoraussetzungen
+## Systemvoraussetzungen
 ---------------------
 PDF-Viewer
 OpenCL-fähiges Gerät inkl. installiertem Treiber und SDK
 Visual Studio 2017
 
-##Anleitung
+## Anleitung
 ---------
 1) Solution-Datei (.sln) mit Visual Studio 2017 öffnen
 2) In den Projekteinstellungen überprüfen, ob OpenCL korrekt konfiguriert ist,
