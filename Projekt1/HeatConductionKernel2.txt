@@ -1,0 +1,21 @@
+__kernel
+void calcHeatConduction(__constant float* params, __constant int* dimensions, __global float* heatPrevious, __global float* heatValues, __global float* finalResult)
+{
+int x = get_global_id(0);
+int y = get_global_id(1);
+
+int ind = dimensions[0] * y;
+
+float cOrigVal = heatPrevious[x + 1 + ind + dimensions[0]];
+float cVal = -2.0f * cOrigVal;
+float uxx = cVal + heatPrevious[x + ind + dimensions[0]] + heatPrevious[x + 2 + ind + dimensions[0]];
+float uyy = cVal + heatPrevious[x + 1 + ind] + heatPrevious[x + 1 + ind + dimensions[0] + dimensions[0]];
+
+float temp = 1.0f / params[0];
+temp = temp * temp;
+
+float val = cOrigVal + params[1]*params[2]*(uxx + uyy)*temp;
+heatValues[x + 1 + ind + dimensions[0]] = val;
+
+finalResult[x + 1 + ind + dimensions[0]] = val;
+}
